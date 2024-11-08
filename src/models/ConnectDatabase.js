@@ -1,16 +1,16 @@
 const mysql = require("mysql2/promise");
 
-const client = mysql.createPool({
+const pool = mysql.createPool({
   host: "localhost",
   port: 3306,
   user: "root",
   password: "root",
-  database: "contacts",
-});
+  database: "rpg",
+});                                                                                                                                                         
 
 const testConnection = async () => {
   try {
-    const connection = await client.getConnection();
+    const connection = await pool.getConnection();
     console.log("MySQL conectado com sucesso!");
     connection.release();
   } catch (error) {
@@ -21,12 +21,13 @@ const testConnection = async () => {
 
 exports.query = async (_query, values) => {
   try {
-    const [rows, fields] = await client.execute(_query, values);
+    const [rows, fields] = await pool.execute(_query, values);
     return rows;
   } catch (error) {
     console.error("Database query error:", error);
     throw error;
   }
 };
+
 
 exports.testConnection = testConnection;

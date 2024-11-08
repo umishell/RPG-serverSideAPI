@@ -1,24 +1,24 @@
-DROP DATABASE IF EXISTS contacts;
-CREATE DATABASE contacts;
-USE contacts;
+DROP DATABASE IF EXISTS rpg;
+CREATE DATABASE rpg;
+USE rpg;
 
-CREATE TABLE IF NOT EXISTS categories (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL
+
+CREATE TABLE IF NOT EXISTS characters (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(100) NOT NULL,
+  class VARCHAR(50) NOT NULL,
+  weapon VARCHAR(50) NOT NULL
 );
 
-INSERT INTO categories (name)
-VALUES ('Família');
-
-CREATE TABLE IF NOT EXISTS contacts (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255),
-    email VARCHAR(255) UNIQUE,
-    phone VARCHAR(255),
-    category_id INT,
-    FOREIGN KEY (category_id) REFERENCES categories(id)
+CREATE TABLE IF NOT EXISTS powers (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(100) NOT NULL,
+  type VARCHAR(50) NOT NULL,
+  damage INT NOT NULL,
+  character_id INT,
+  FOREIGN KEY (character_id) REFERENCES characters(id) ON DELETE CASCADE
 );
 
 SHOW TABLES;
-DESCRIBE categories;
-DESCRIBE contacts;
+DESCRIBE powers;
+DESCRIBE characters;
